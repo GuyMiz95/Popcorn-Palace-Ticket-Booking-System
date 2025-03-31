@@ -1,6 +1,7 @@
 package com.ticketbookingsystem.service;
 
 import com.ticketbookingsystem.entity.Booking;
+import com.ticketbookingsystem.exception.ConflictException;
 import com.ticketbookingsystem.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class BookingService {
         boolean seatTaken = bookingRepository.existsByShowtimeIdAndSeatNumber(booking.getShowtime().getId(), booking.getSeatNumber());
 
         if (seatTaken) {
-            throw new RuntimeException("Seat already booked for this showtime.");
+            throw new ConflictException("Seat already booked for this showtime.");
         }
 
         return bookingRepository.save(booking);

@@ -8,10 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
-    @Getter
-    @Setter
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -19,5 +18,4 @@ public class Movie {
     private Integer duration; // in minutes
     private Double rating;
     private Integer release_year;
-
 }

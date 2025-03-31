@@ -11,12 +11,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Booking {
-    @Getter
-    @Setter
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     @ManyToOne
     @JoinColumn(name = "showtime_id", nullable = false)
     private Showtime showtime;

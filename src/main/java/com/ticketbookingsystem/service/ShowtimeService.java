@@ -1,6 +1,8 @@
 package com.ticketbookingsystem.service;
 
 import com.ticketbookingsystem.entity.Showtime;
+import com.ticketbookingsystem.exception.ConflictException;
+import com.ticketbookingsystem.exception.ResourceNotFoundException;
 import com.ticketbookingsystem.repository.ShowtimeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class ShowtimeService {
     }
 
     public Showtime updateShowtime(Long id, Showtime updatedShowtime) {
-        Showtime showtime = showtimeRepository.findById(id).orElseThrow(() -> new RuntimeException("Showtime not found"));
+        Showtime showtime = showtimeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Showtime not found"));
 
         showtime.setMovie(updatedShowtime.getMovie());
         showtime.setTheater(updatedShowtime.getTheater());
@@ -30,7 +32,7 @@ public class ShowtimeService {
         showtime.setPrice(updatedShowtime.getPrice());
 
         if (hasConflict(showtime)) {
-            throw new RuntimeException("Conflicting showtime exists after update.");
+            throw new ConflictException("Conflicting showtime exists after update.");
         }
         return showtimeRepository.save(showtime);
     }
