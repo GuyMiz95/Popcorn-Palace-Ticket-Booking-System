@@ -13,9 +13,11 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String title;
+
     private String genre;
     private Integer duration; // in minutes
     private Double rating;
-    private Integer release_year;
+    private Integer releaseYear;
 }

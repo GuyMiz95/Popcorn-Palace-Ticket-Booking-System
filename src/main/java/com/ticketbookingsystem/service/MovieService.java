@@ -26,13 +26,31 @@ public class MovieService {
         movie.setGenre(updatedMovie.getGenre());
         movie.setDuration(updatedMovie.getDuration());
         movie.setRating(updatedMovie.getRating());
-        movie.setRelease_year(updatedMovie.getRelease_year());
+        movie.setReleaseYear(updatedMovie.getReleaseYear());
+
+        return movieRepository.save(movie);
+    }
+
+    public Movie updateMovieByTitle(String title, Movie updatedMovie) {
+        Movie movie = movieRepository.findByTitle(title)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
+
+        movie.setGenre(updatedMovie.getGenre());
+        movie.setDuration(updatedMovie.getDuration());
+        movie.setRating(updatedMovie.getRating());
+        movie.setReleaseYear(updatedMovie.getReleaseYear());
 
         return movieRepository.save(movie);
     }
 
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
+    }
+
+    public void deleteMovieByTitle(String title) {
+        Movie movie = movieRepository.findByTitle(title)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
+        movieRepository.delete(movie);
     }
 
     public List<Movie> getAllMovies() {

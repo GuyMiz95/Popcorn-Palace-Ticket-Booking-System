@@ -9,5 +9,4 @@ public class PopcornPalaceTicketBookingSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(PopcornPalaceTicketBookingSystemApplication.class, args);
     }
-
 }

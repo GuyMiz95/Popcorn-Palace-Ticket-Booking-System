@@ -42,7 +42,7 @@ public class ShowtimeService {
     }
 
     public Showtime getShowtimeById(Long id) {
-        return showtimeRepository.findById(id).orElseThrow(() -> new RuntimeException("Showtime not found"));
+        return showtimeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Showtime not found"));
     }
 
     private boolean hasConflict(Showtime showtime) {

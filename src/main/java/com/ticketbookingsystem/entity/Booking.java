@@ -16,12 +16,11 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
     @ManyToOne
     @JoinColumn(name = "showtime_id", nullable = false)
     private Showtime showtime;
 
     private String seatNumber;
-    private String customerInfo;
+    private String userId;
 
 }
