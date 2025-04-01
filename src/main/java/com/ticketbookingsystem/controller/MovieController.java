@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for managing movies.
+ */
 @RestController
 @RequestMapping("/api/movies")
 @RequiredArgsConstructor
@@ -16,33 +19,34 @@ public class MovieController {
 
     private final MovieService movieService;
 
+    /**
+     * Adds a new movie.
+     */
     @PostMapping
-    public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
-        return new ResponseEntity<>(movieService.createMovie(movie), HttpStatus.CREATED);
+    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
+        return new ResponseEntity<>(movieService.addMovie(movie), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie updatedMovie) {
-        return ResponseEntity.ok(movieService.updateMovie(id, updatedMovie));
-    }
-
-    @PostMapping("/update/{movieTitle}")
-    public ResponseEntity<Movie> updateMovieByTitle(@PathVariable String movieTitle, @RequestBody Movie updatedMovie) {
-        return new ResponseEntity<>(movieService.updateMovieByTitle(movieTitle, updatedMovie), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/id/{id}")
-    public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovie(id);
-        return ResponseEntity.noContent().build();
-    }
-
+    /**
+     * Deletes a movie by its title.
+     */
     @DeleteMapping("/{movieTitle}")
-    public ResponseEntity<Void> deleteMovieByTitle(@PathVariable String movieTitle) {
-        movieService.deleteMovieByTitle(movieTitle);
+    public ResponseEntity<Void> deleteMovie(@PathVariable String movieTitle) {
+        movieService.deleteMovie(movieTitle);
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Updates an existing movie by its title.
+     */
+    @PostMapping("/update/{movieTitle}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable String movieTitle, @RequestBody Movie updatedMovie) {
+        return new ResponseEntity<>(movieService.updateMovie(movieTitle, updatedMovie), HttpStatus.OK);
+    }
+
+    /**
+     * Retrieves all movies.
+     */
     @GetMapping("/all")
     public ResponseEntity<List<Movie>> getAllMovies() {
         return ResponseEntity.ok(movieService.getAllMovies());

@@ -20,7 +20,7 @@ public class Booking {
     @JoinColumn(name = "showtime_id", nullable = false)
     private Showtime showtime;
 
-    private String seatNumber;
+    private Integer seatNumber;
     private String userId;
 
 }

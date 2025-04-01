@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global exception handler for managing and formatting API error responses.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

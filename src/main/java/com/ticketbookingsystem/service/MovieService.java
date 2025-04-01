@@ -9,17 +9,33 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service layer for handling business logic related to movies.
+ */
 @Service
 @RequiredArgsConstructor
 public class MovieService {
 
     private final MovieRepository movieRepository;
 
-    public Movie createMovie(Movie movie) {
+    /**
+     * Saves a new movie to the database.
+     *
+     * @param movie the movie to be added
+     * @return the saved movie
+     */
+    public Movie addMovie(Movie movie) {
         return movieRepository.save(movie);
     }
 
-    public Movie updateMovie(Long id, Movie updatedMovie) {
+    /**
+     * Updates an existing movie by its ID.
+     *
+     * @param id ID of the movie to update
+     * @param updatedMovie the new movie details
+     * @return the updated movie
+     */
+    public Movie updateMovieById(Long id, Movie updatedMovie) {
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
 
         movie.setTitle(updatedMovie.getTitle());
@@ -31,7 +47,14 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public Movie updateMovieByTitle(String title, Movie updatedMovie) {
+    /**
+     * Updates an existing movie using its title.
+     *
+     * @param title the title of the movie to update
+     * @param updatedMovie the new movie details
+     * @return the updated movie
+     */
+    public Movie updateMovie(String title, Movie updatedMovie) {
         Movie movie = movieRepository.findByTitle(title)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
 
@@ -43,18 +66,27 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public void deleteMovie(Long id) {
+    /**
+     * Deletes a movie by its ID.
+     *
+     * @param id the ID of the movie to delete
+     */
+    public void deleteMovieById(Long id) {
         movieRepository.deleteById(id);
     }
 
-    public void deleteMovieByTitle(String title) {
+    public void deleteMovie(String title) {
         Movie movie = movieRepository.findByTitle(title)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
         movieRepository.delete(movie);
     }
 
+    /**
+     * Retrieves all movies stored in the database.
+     *
+     * @return list of all movies
+     */
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
-
 }
