@@ -7,6 +7,9 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Repository interface for managing Showtime entities and querying overlapping showtimes.
+ */
 public interface ShowtimeRepository extends JpaRepository<Showtime, Long>{
     @Query("SELECT s FROM Showtime s " +
             "WHERE s.theater = :theater " +
